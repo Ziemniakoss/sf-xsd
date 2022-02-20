@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://soap.sforce.com/2006/04/metadata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="CustomLabels" type="met:CustomLabels" xmlns:met="http://soap.sforce.com/2006/04/metadata"/>
+	<xs:element name="Package" type="met:Package" xmlns:met="http://soap.sforce.com/2006/04/metadata"/>
+	<!--
+
+	Labels
+
+	-->
+	<xs:complexType name="CustomLabels">
+		<xs:sequence>
+			<xs:element type="CustomLabel" name="labels" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CustomLabel">
+		<xs:annotation>
+			<xs:documentation>Metadata representing custom label</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="fullName" type="xs:string">
+			</xs:element>
+			<xs:element name="categories" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+						Comma-separated categories. Maximum 255 characters
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="language" type="LanguageEnum">
+				<xs:annotation>
+					<xs:documentation>Language for this label</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protected" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>True if visible when installed as package</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shortDescription" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Used to identify label and to merge fields</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="value" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+						Value of label
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+	<!--
+
+	Package
+
+	-->
+	<xs:complexType name="Package">
+		<xs:all>
+			<xs:element name="apiAccessLevel" type="APIAccessLevel">
+				<!--				TODO docs-->
+			</xs:element>
+			<xs:element name="types" type="PackageTypeMembers" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>
+						Components of package
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="PackageTypeMembers">
+		<xs:sequence>
+			<xs:sequence>
+				<xs:element name="members" type="xs:string" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>One or more components, supports wildcards for some of metadata types</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="name" type="MetadataTypeEnum">
+				<xs:annotation>
+					<xs:documentation>Name of metadata type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="MetadataTypeEnum">
+		<xs:annotation>
+			<xs:documentation>
+				https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_types_list.htm
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction>
+			<xs:enumeration value="AccountRelationshipShareRule"/>
+			<xs:enumeration value="ActionLinkGroupTemplate"/>
+			<xs:enumeration value="ActionPlanTemplate"/>
+			<xs:enumeration value="AIApplicationConfig"/>
+			<xs:enumeration value="AnaliticSnapshot"/>
+			<xs:enumeration value="AnimationRule"/>
+			<xs:enumeration value="ArticleComponent"/>
+			<xs:enumeration value="ApexClass"/>
+			<xs:enumeration value="ApexComponent">
+				<xs:annotation>
+					<xs:documentation>Visualforce page</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ApexTestSuite"/>
+			<xs:enumeration value="ApexTrigger"/>
+			<xs:enumeration value="AppMenu"/>
+			<xs:enumeration value="AppointmentAssigmentPolicy"/>
+			<xs:enumeration value="AppointmentSchedulingPolicy"/>
+			<xs:enumeration value="ApprovalProcess"/>
+			<xs:enumeration value="AssignmentRules"/>
+			<xs:enumeration value="Audience"/>
+			<xs:enumeration value="AuraDefinitionBundle"/>
+			<xs:enumeration value="AuthProvider"/>
+			<xs:enumeration value="AutoResponseRules"/>
+			<xs:enumeration value="BatchCalcJobDefinition"/>
+			<xs:enumeration value="BlacklistedCustomer"/>
+			<xs:enumeration value="Bot"/>
+			<xs:enumeration value="BotVersion"/>
+			<xs:enumeration value="BrandingSet"/>
+			<xs:enumeration value="BriefcaseDefinition"/>
+			<xs:enumeration value="BusinessProcessGroup"/>
+			<xs:enumeration value="CallCenter"/>
+			<xs:enumeration value="CallCoachingMediaProvider"/>
+			<xs:enumeration value="CapaginInfluenceModel"/>
+			<xs:enumeration value="CaseSubjectParticle"/>
+			<!--            TODO more-->
+			<xs:enumeration value="CustomLabels"/>
+			<!--            TODO more-->
+			<xs:enumeration value="CustomTab"/>
+			<!--            TODO more-->
+			<xs:enumeration value="FlexiPage"/>
+			<xs:enumeration value="Flow"/>
+			<xs:enumeration value="FlowCategory"/>
+			<xs:enumeration value="FlowDefinition"/>
+			<xs:enumeration value="Folder"/>
+			<!--            TODO more-->
+			<xs:enumeration value="GlobalPicklist"/>
+			<xs:enumeration value="GlobalPicklistValue"/>
+			<xs:enumeration value="GlobalValueSet"/>
+			<!--            TODO-->
+			<xs:enumeration value="Profile"/>
+			<!--            TODO-->
+			<xs:enumeration value="Report"/>
+			<xs:enumeration value="ReportType"/>
+			<!--            TODO-->
+			<xs:enumeration value="StaticResource"/>
+			<!--            TODO-->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="APIAccessLevel">
+		<xs:restriction>
+			<xs:enumeration value="Unrestricted">
+				<!-- TODO docs-->
+			</xs:enumeration>
+			<xs:enumeration value="Restricted">
+				<!-- TODO docs-->
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="LanguageEnum" final="restriction">
+		<xs:restriction>
+			<xs:enumeration value="en_US"/>
+			<!--      TODO more-->
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
