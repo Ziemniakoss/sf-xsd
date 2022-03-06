@@ -1,172 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://soap.sforce.com/2006/04/metadata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:element name="CustomLabels" type="met:CustomLabels" xmlns:met="http://soap.sforce.com/2006/04/metadata"/>
-	<xs:element name="Package" type="met:Package" xmlns:met="http://soap.sforce.com/2006/04/metadata"/>
-	<!--
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://soap.sforce.com/2006/04/metadata" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://soap.sforce.com/2006/04/metadata">
+	<xs:element name="CustomLabels">
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element name="labels">
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="fullName">
+							</xs:element>
+							<xs:element name="categories" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>
+										Comma separated categories
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="language" type="LanguageEnum">
+							</xs:element>
+							<xs:element name="protected" type="xs:boolean">
+							</xs:element>
+							<xs:element name="shortDescription">
 
-	Labels
+							</xs:element>
+							<xs:element name="value">
 
-	-->
-	<xs:complexType name="CustomLabels">
-		<xs:sequence>
-			<xs:element type="CustomLabel" name="labels" minOccurs="0" maxOccurs="unbounded"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="CustomLabel">
-		<xs:annotation>
-			<xs:documentation>Metadata representing custom label</xs:documentation>
-		</xs:annotation>
-		<xs:all>
-			<xs:element name="fullName" type="xs:string">
-			</xs:element>
-			<xs:element name="categories" type="xs:string" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>
-						Comma-separated categories. Maximum 255 characters
-					</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="language" type="LanguageEnum">
-				<xs:annotation>
-					<xs:documentation>Language for this label</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="protected" type="xs:boolean">
-				<xs:annotation>
-					<xs:documentation>True if visible when installed as package</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="shortDescription" type="xs:string">
-				<xs:annotation>
-					<xs:documentation>Used to identify label and to merge fields</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="value" type="xs:string">
-				<xs:annotation>
-					<xs:documentation>
-						Value of label
-					</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:all>
-	</xs:complexType>
-	<!--
-
-	Package
-
-	-->
-	<xs:complexType name="Package">
-		<xs:all>
-			<xs:element name="apiAccessLevel" type="APIAccessLevel">
-				<!--				TODO docs-->
-			</xs:element>
-			<xs:element name="types" type="PackageTypeMembers" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>
-						Components of package
-					</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:all>
-	</xs:complexType>
-	<xs:complexType name="PackageTypeMembers">
-		<xs:sequence>
-			<xs:sequence>
-				<xs:element name="members" type="xs:string" maxOccurs="unbounded">
-					<xs:annotation>
-						<xs:documentation>One or more components, supports wildcards for some of metadata types</xs:documentation>
-					</xs:annotation>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
-			<xs:element name="name" type="MetadataTypeEnum">
-				<xs:annotation>
-					<xs:documentation>Name of metadata type</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
+		</xs:complexType>
+	</xs:element>
 
-	<xs:simpleType name="MetadataTypeEnum">
-		<xs:annotation>
-			<xs:documentation>
-				https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_types_list.htm
-			</xs:documentation>
-		</xs:annotation>
+	<xs:simpleType name="LanguageEnum">
 		<xs:restriction>
-			<xs:enumeration value="AccountRelationshipShareRule"/>
-			<xs:enumeration value="ActionLinkGroupTemplate"/>
-			<xs:enumeration value="ActionPlanTemplate"/>
-			<xs:enumeration value="AIApplicationConfig"/>
-			<xs:enumeration value="AnaliticSnapshot"/>
-			<xs:enumeration value="AnimationRule"/>
-			<xs:enumeration value="ArticleComponent"/>
-			<xs:enumeration value="ApexClass"/>
-			<xs:enumeration value="ApexComponent">
-				<xs:annotation>
-					<xs:documentation>Visualforce page</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="ApexTestSuite"/>
-			<xs:enumeration value="ApexTrigger"/>
-			<xs:enumeration value="AppMenu"/>
-			<xs:enumeration value="AppointmentAssigmentPolicy"/>
-			<xs:enumeration value="AppointmentSchedulingPolicy"/>
-			<xs:enumeration value="ApprovalProcess"/>
-			<xs:enumeration value="AssignmentRules"/>
-			<xs:enumeration value="Audience"/>
-			<xs:enumeration value="AuraDefinitionBundle"/>
-			<xs:enumeration value="AuthProvider"/>
-			<xs:enumeration value="AutoResponseRules"/>
-			<xs:enumeration value="BatchCalcJobDefinition"/>
-			<xs:enumeration value="BlacklistedCustomer"/>
-			<xs:enumeration value="Bot"/>
-			<xs:enumeration value="BotVersion"/>
-			<xs:enumeration value="BrandingSet"/>
-			<xs:enumeration value="BriefcaseDefinition"/>
-			<xs:enumeration value="BusinessProcessGroup"/>
-			<xs:enumeration value="CallCenter"/>
-			<xs:enumeration value="CallCoachingMediaProvider"/>
-			<xs:enumeration value="CapaginInfluenceModel"/>
-			<xs:enumeration value="CaseSubjectParticle"/>
-			<!--            TODO more-->
-			<xs:enumeration value="CustomLabels"/>
-			<!--            TODO more-->
-			<xs:enumeration value="CustomTab"/>
-			<!--            TODO more-->
-			<xs:enumeration value="FlexiPage"/>
-			<xs:enumeration value="Flow"/>
-			<xs:enumeration value="FlowCategory"/>
-			<xs:enumeration value="FlowDefinition"/>
-			<xs:enumeration value="Folder"/>
-			<!--            TODO more-->
-			<xs:enumeration value="GlobalPicklist"/>
-			<xs:enumeration value="GlobalPicklistValue"/>
-			<xs:enumeration value="GlobalValueSet"/>
-			<!--            TODO-->
-			<xs:enumeration value="Profile"/>
-			<!--            TODO-->
-			<xs:enumeration value="Report"/>
-			<xs:enumeration value="ReportType"/>
-			<!--            TODO-->
-			<xs:enumeration value="StaticResource"/>
-			<!--            TODO-->
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="APIAccessLevel">
-		<xs:restriction>
-			<xs:enumeration value="Unrestricted">
-				<!-- TODO docs-->
-			</xs:enumeration>
-			<xs:enumeration value="Restricted">
-				<!-- TODO docs-->
-			</xs:enumeration>
-		</xs:restriction>
-	</xs:simpleType>
-
-	<xs:simpleType name="LanguageEnum" final="restriction">
-		<xs:restriction>
+			<xs:enumeration value="af"/>
+			<xs:enumeration value="am"/>
+			<xs:enumeration value="ar"/>
+			<xs:enumeration value="ar_AE"/>
+			<xs:enumeration value="ar_BH"/>
+			<xs:enumeration value="ar_DZ"/>
+			<xs:enumeration value="ar_EG"/>
+			<xs:enumeration value="ar_IQ"/>
+			<xs:enumeration value="ar_JO"/>
+			<xs:enumeration value="ar_KW"/>
+			<xs:enumeration value="ar_LB"/>
+			<xs:enumeration value="ar_LY"/>
+			<xs:enumeration value="ar_MA"/>
+			<xs:enumeration value="ar_OM"/>
+			<xs:enumeration value="ar_QA"/>
+			<xs:enumeration value="ar_SA"/>
+			<xs:enumeration value="ar_SD"/>
+			<xs:enumeration value="ar_SY"/>
+			<xs:enumeration value="ar_TN"/>
+			<xs:enumeration value="ar_YE"/>
+			<xs:enumeration value="bg"/>
+			<xs:enumeration value="bn"/>
+			<xs:enumeration value="bs"/>
+			<xs:enumeration value="ca"/>
+			<xs:enumeration value="cs"/>
+			<xs:enumeration value="cy"/>
+			<xs:enumeration value="da"/>
+			<xs:enumeration value="de"/>
+			<xs:enumeration value="de_AT"/>
+			<xs:enumeration value="de_BE"/>
+			<xs:enumeration value="de_CH"/>
+			<xs:enumeration value="de_LU"/>
+			<xs:enumeration value="el"/>
+			<xs:enumeration value="el_CY"/>
+			<xs:enumeration value="en_AE"/>
+			<xs:enumeration value="en_AU"/>
+			<xs:enumeration value="en_BE"/>
+			<xs:enumeration value="en_CA"/>
+			<xs:enumeration value="en_CY"/>
+			<xs:enumeration value="en_DE"/>
+			<xs:enumeration value="en_GB"/>
+			<xs:enumeration value="en_HK"/>
+			<xs:enumeration value="en_IE"/>
+			<xs:enumeration value="en_IL"/>
+			<xs:enumeration value="en_IN"/>
+			<xs:enumeration value="en_MT"/>
+			<xs:enumeration value="en_MY"/>
+			<xs:enumeration value="en_NL"/>
+			<xs:enumeration value="en_NZ"/>
+			<xs:enumeration value="en_PH"/>
+			<xs:enumeration value="en_SG"/>
 			<xs:enumeration value="en_US"/>
-			<!--      TODO more-->
+			<xs:enumeration value="en_US"/>
+			<xs:enumeration value="en_ZA"/>
+			<xs:enumeration value="es"/>
+			<xs:enumeration value="es_AR"/>
+			<xs:enumeration value="es_BO"/>
+			<xs:enumeration value="es_CL"/>
+			<xs:enumeration value="es_CO"/>
+			<xs:enumeration value="es_CR"/>
+			<xs:enumeration value="es_DO"/>
+			<xs:enumeration value="es_EC"/>
+			<xs:enumeration value="es_GT"/>
+			<xs:enumeration value="es_HN"/>
+			<xs:enumeration value="es_MX"/>
+			<xs:enumeration value="es_NI"/>
+			<xs:enumeration value="es_PA"/>
+			<xs:enumeration value="es_PE"/>
+			<xs:enumeration value="es_PR"/>
+			<xs:enumeration value="es_PY"/>
+			<xs:enumeration value="es_SV"/>
+			<xs:enumeration value="es_US"/>
+			<xs:enumeration value="es_UY"/>
+			<xs:enumeration value="es_VE"/>
+			<xs:enumeration value="et"/>
+			<xs:enumeration value="eu"/>
+			<xs:enumeration value="fa"/>
+			<xs:enumeration value="fi"/>
+			<xs:enumeration value="fr"/>
+			<xs:enumeration value="fr_BE"/>
+			<xs:enumeration value="fr_CA"/>
+			<xs:enumeration value="fr_CH"/>
+			<xs:enumeration value="fr_LU"/>
+			<xs:enumeration value="fr_MA"/>
+			<xs:enumeration value="ga"/>
+			<xs:enumeration value="gu"/>
+			<xs:enumeration value="haw"/>
+			<xs:enumeration value="hi"/>
+			<xs:enumeration value="hr"/>
+			<xs:enumeration value="ht"/>
+			<xs:enumeration value="hu"/>
+			<xs:enumeration value="hy"/>
+			<xs:enumeration value="in"/>
+			<xs:enumeration value="is"/>
+			<xs:enumeration value="it"/>
+			<xs:enumeration value="it_CH"/>
+			<xs:enumeration value="iw"/>
+			<xs:enumeration value="ja"/>
+			<xs:enumeration value="ji"/>
+			<xs:enumeration value="ka"/>
+			<xs:enumeration value="kk"/>
+			<xs:enumeration value="kl"/>
+			<xs:enumeration value="km"/>
+			<xs:enumeration value="kn"/>
+			<xs:enumeration value="ko"/>
+			<xs:enumeration value="lb"/>
+			<xs:enumeration value="lt"/>
+			<xs:enumeration value="lv"/>
+			<xs:enumeration value="mi"/>
+			<xs:enumeration value="mk"/>
+			<xs:enumeration value="ml"/>
+			<xs:enumeration value="mr"/>
+			<xs:enumeration value="ms"/>
+			<xs:enumeration value="mt"/>
+			<xs:enumeration value="my"/>
+			<xs:enumeration value="nl_BE"/>
+			<xs:enumeration value="nl_NL"/>
+			<xs:enumeration value="no"/>
+			<xs:enumeration value="pl"/>
+			<xs:enumeration value="pt_BR"/>
+			<xs:enumeration value="pt_PT"/>
+			<xs:enumeration value="rm"/>
+			<xs:enumeration value="ro"/>
+			<xs:enumeration value="ro_MD"/>
+			<xs:enumeration value="ru"/>
+			<xs:enumeration value="ru_AM"/>
+			<xs:enumeration value="ru_BY"/>
+			<xs:enumeration value="ru_KG"/>
+			<xs:enumeration value="ru_KZ"/>
+			<xs:enumeration value="ru_LT"/>
+			<xs:enumeration value="ru_MD"/>
+			<xs:enumeration value="ru_PL"/>
+			<xs:enumeration value="ru_UA"/>
+			<xs:enumeration value="sh"/>
+			<xs:enumeration value="sh_ME"/>
+			<xs:enumeration value="sk"/>
+			<xs:enumeration value="sl"/>
+			<xs:enumeration value="sm"/>
+			<xs:enumeration value="sq"/>
+			<xs:enumeration value="sr"/>
+			<xs:enumeration value="sv"/>
+			<xs:enumeration value="sw"/>
+			<xs:enumeration value="ta"/>
+			<xs:enumeration value="te"/>
+			<xs:enumeration value="tl"/>
+			<xs:enumeration value="tr"/>
+			<xs:enumeration value="uk"/>
+			<xs:enumeration value="ur"/>
+			<xs:enumeration value="vi"/>
+			<xs:enumeration value="xh"/>
+			<xs:enumeration value="zh_CN"/>
+			<xs:enumeration value="zh_HK"/>
+			<xs:enumeration value="zh_MY"/>
+			<xs:enumeration value="zh_SG"/>
+			<xs:enumeration value="zh_TW"/>
+			<xs:enumeration value="zu"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>
